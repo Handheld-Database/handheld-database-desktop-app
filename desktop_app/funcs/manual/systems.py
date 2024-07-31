@@ -1,6 +1,6 @@
 import json
 import os, sys
-from helpers.os import scan_input
+from funcs.os import scan_input
 
 # Function to create a new system under a specified platform
 def create_system(platform_name, system_name):
