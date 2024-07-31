@@ -1,11 +1,11 @@
 import json
 import os
-from helpers.images import download_game_images
-from helpers.os import scan_input
-from helpers.scraper import get_game_description
-from helpers.steamgrid import SteamGridDB
-from helpers.strings import normalize_string_lower
-from helpers.templates import generate_game_templates_md
+from funcs.images import download_game_images
+from funcs.os import scan_input
+from funcs.scraper import get_game_description
+from funcs.steamgrid import SteamGridDB
+from funcs.strings import normalize_string_lower
+from funcs.templates import generate_game_templates_md
 
 
 def create_game(platform_name, system_name, game_name, api_key=None):

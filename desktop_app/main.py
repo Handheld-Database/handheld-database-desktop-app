@@ -1,5 +1,5 @@
-import tkinter as tk                # python 3
-from tkinter import font as tkfont  # python 3
+import tkinter as tk                
+from tkinter import font as tkfont  
 from tkinter import PhotoImage
 from tkinter import messagebox
 
@@ -7,6 +7,7 @@ from tkinter import messagebox
 # Application to make contributing to the Handheld Database easier.
 # WORK IN PROGRESS
 
+# Base of the application
 class App(tk.Tk):
     def __init__(self, *args, **kwargs):
         tk.Tk.__init__(self, *args, **kwargs)
@@ -29,8 +30,9 @@ class App(tk.Tk):
         container.grid_rowconfigure(0, weight=1)
         container.grid_columnconfigure(0, weight=1)
 
+        
         self.frames = {}
-        for F in (Menu_Window, Platfrom_Window, System_Window, Game_Window):
+        for F in (Menu_Window, Platfrom_Window, System_Window, Game_Window, Game_W_Manual, Game_W_Automatic):
             page_name = F.__name__
             frame = F(parent=container, controller=self)
             self.frames[page_name] = frame
@@ -38,13 +40,12 @@ class App(tk.Tk):
 
         self.show_frame("Menu_Window")
 
+    # Change whitch window is shown by the page name.
     def show_frame(self, page_name):
-        '''Show a frame for the given page name'''
         frame = self.frames[page_name]
-        frame.tkraise()
+        frame.tkraise()  # Lifts the appropriate frame to the top, so it is shown.
 
-
-# Making the main menu window
+# Main Menu window UI
 class Menu_Window(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -96,9 +97,11 @@ WORK IN PROGRESS""", font=('Arial', 28), anchor="center")
 
         tk.Label(self, text="""For the Handheld-Database
 Made by meeeaCH""", font=('Arial', 18), justify="center").pack()
+        
+        tk.Label(self, text="""ALPHA BUILD""", font=('Arial', 10, 'bold'), justify="center").pack(side="right")
 
         # Making the HELP button
-        help = tk.Button(self, text="HELP", font=('Arial', 12), command=self.help_Btn_Func) 
+        help = tk.Button(self, text="Help", font=('Arial', 10), command=self.help_Btn_Func) 
         help.pack(side="right", padx=20, pady=12)
         self.pack()
 
@@ -111,8 +114,7 @@ Made by meeeaCH""", font=('Arial', 18), justify="center").pack()
 """
         messagebox.showinfo("Main Menu Info", main_menu) 
 
-
-# Making the Platfrom window
+# Platfrom window UI
 class Platfrom_Window(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -121,37 +123,148 @@ class Platfrom_Window(tk.Frame):
         label = tk.Label(self, text="""Platfrom Window Temp
 You will be able to add New Platfroms to the database""", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
-        button = tk.Button(self, text="Go to the start page",
+        button = tk.Button(self, text="Go Back",
                            command=lambda: controller.show_frame("Menu_Window"))
-        button.pack()
+        button.pack(anchor = "s", side="left", padx=20, pady=12)
 
-# Making the System window
+        # Making the HELP button
+        help = tk.Button(self, text="Help", font=('Arial', 10), command=self.help_Btn_Func) 
+        help.pack(anchor = "s", side="right", padx=20, pady=12)
+        
+    # Defining the HELP button's function
+    def help_Btn_Func(self):
+        main_menu = """HERE GOES THE HELP FOR THIS SECTION.
+"""
+        messagebox.showinfo("Platfrom Info", main_menu) 
+
+# System window UI
 class System_Window(tk.Frame):
-
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
         label = tk.Label(self, text="""System Window Temp
 You will be able to add new system to the existing platfroms""", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
-        button = tk.Button(self, text="Go to the start page",
+        button = tk.Button(self, text="Go Back",
                            command=lambda: controller.show_frame("Menu_Window"))
-        button.pack()
+        button.pack(anchor = "s", side="left", padx=20, pady=12)
 
+        # Making the HELP button
+        help = tk.Button(self, text="Help", font=('Arial', 10), command=self.help_Btn_Func) 
+        help.pack(anchor = "s", side="right", padx=20, pady=12)
+        
+    # Defining the HELP button's function
+    def help_Btn_Func(self):
+        main_menu = """HERE GOES THE HELP FOR THIS SECTION.
+"""
+        messagebox.showinfo("System Info", main_menu) 
 
-# Making the Game window
+# Main Game window UI
 class Game_Window(tk.Frame):
-
     def __init__(self, parent, controller):
         tk.Frame.__init__(self, parent)
         self.controller = controller
-        label = tk.Label(self, text="""Game Window Temp
-You will be able to add games to the existing system in existing platfroms
-Yo will be able to scrap Images and Overviwes of games""", font=controller.title_font)
+        label = tk.Label(self, text="""Main Game Window Temp
+You will be able to choose what mode you want to add games to the database.""", font=controller.title_font)
         label.pack(side="top", fill="x", pady=10)
-        button = tk.Button(self, text="Go to the start page",
+
+        # Load images
+        manual_game_Img = PhotoImage(file="./desktop_app/images/add.png")  # https://www.pngwing.com/en/free-png-xmbqc
+        import_game_Img = PhotoImage(file="./desktop_app/images/import.png")  # https://www.pngwing.com/en/free-png-yxgyl
+
+        # Making a frame for the buttons.
+        buttonframe = tk.Frame(self)
+        buttonframe.columnconfigure(0, weight=1)
+        buttonframe.columnconfigure(1, weight=1)
+
+        # Add Manual Game contribution button
+        manual_game = tk.Button(buttonframe, text="Add Game", image=manual_game_Img, command=lambda: controller.show_frame("Game_W_Manual"))  
+        manual_game.img = manual_game_Img
+        manual_game.grid(row=0, column=0,sticky=tk.W+tk.E, padx=20)
+        # Add Label under the button
+        manual_game_Lbl = tk.Label(buttonframe, text="Add Game", font=('Arial', 32))
+        manual_game_Lbl.grid(row=1, column=0)
+
+        # Add Automatic Game contribution button, import from .CSV files
+        import_game = tk.Button(buttonframe, text="Import Game(s)", image=import_game_Img, command=lambda: controller.show_frame("Game_W_Automatic"))  
+        import_game.img = import_game_Img
+        import_game.grid(row=0, column=1,sticky=tk.W+tk.E, padx=20)
+        # Add Label under the button
+        import_game_Lbl = tk.Label(buttonframe, text="Import Game(s)", font=('Arial', 32))
+        import_game_Lbl.grid(row=1, column=1)
+        buttonframe.pack(pady=20)
+
+        button = tk.Button(self, text="Go Back", font=('Arial', 10),
                            command=lambda: controller.show_frame("Menu_Window"))
-        button.pack()
+        button.pack(anchor = "s", side="left", padx=20, pady=12)
+
+        # Making the HELP button
+        help = tk.Button(self, text="HELP", font=('Arial', 10), command=self.help_Btn_Func) 
+        help.pack(anchor = "s", side="right", padx=20, pady=12)
+        
+
+    # Defining the HELP button's function
+    def help_Btn_Func(self):
+        main_menu = """HERE GOES THE HELP FOR THIS SECTION.
+"""
+        messagebox.showinfo("Game Main Menu Info", main_menu) 
+
+# Manual Game window UI
+class Game_W_Manual(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        label = tk.Label(self, text="""Manual Game Window Temp
+You will be able to add games to the database manually.""", font=controller.title_font)
+        label.pack(side="top", fill="x", pady=10)
+#-------------------------------------------------------------------------------------
+
+# -------- HERE GOES THE UI
+
+#-------------------------------------------------------------------------------------
+        button = tk.Button(self, text="Go Back",
+                           command=lambda: controller.show_frame("Game_Window"))
+        button.pack(anchor = "s", side="left", padx=20, pady=12)
+
+        # Making the HELP button
+        help = tk.Button(self, text="HELP", font=('Arial', 10), command=self.help_Btn_Func) 
+        help.pack(anchor = "s", side="right", padx=20, pady=12)
+        
+    # Defining the HELP button's function
+    def help_Btn_Func(self):
+        main_menu = """HERE GOES THE HELP FOR THIS SECTION.
+"""
+        messagebox.showinfo("Game Manual Menu Info", main_menu) 
+       
+# Automatic Game window UI
+class Game_W_Automatic(tk.Frame):
+    def __init__(self, parent, controller):
+        tk.Frame.__init__(self, parent)
+        self.controller = controller
+        label = tk.Label(self, text="""Import Game Window Temp
+You will be able to import games from .CSV files.""", font=controller.title_font)
+        label.pack(side="top", fill="x", pady=10)
+#-------------------------------------------------------------------------------------
+
+# -------- HERE GOES THE UI
+
+#-------------------------------------------------------------------------------------
+        button = tk.Button(self, text="Go Back",
+                           command=lambda: controller.show_frame("Game_Window"))
+        button.pack(anchor = "s", side="left", padx=20, pady=12)
+        
+        # Making the HELP button
+        help = tk.Button(self, text="HELP", font=('Arial', 10), command=self.help_Btn_Func) 
+        help.pack(anchor = "s", side="right", padx=20, pady=12)
+        
+
+    # Defining the HELP button's function
+    def help_Btn_Func(self):
+        main_menu = """HERE GOES THE HELP FOR THIS SECTION.
+"""
+        messagebox.showinfo("Game Automatic Menu Info", main_menu) 
+
+
 
 
 if __name__ == "__main__":
