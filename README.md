@@ -1,14 +1,19 @@
 # Application to make the contribution to the Handheld Database easier.
 
 ## About
-This application is **work in progress**. You will be able to use it to add Platforms, Systems and Games to those systems. You will be able to do everything visually, like now through the scripts.
+> [!WARNING]
+> This application is work in progress. 
+
+You will be able to use it to add Platforms, Systems and Games to those systems. You will be able to do everything visually, like now through the scripts.
 
 ## TO DO
 - [x] Make temporary UI for the Platfrom, System and Game windows
-- [ ] Make temporary UI for the manual game and automatic game contribution.
 - [x] Put all classes in different files.
+- [ ] Make temporary UI for the manual game and automatic game contribution.
+- [ ] Make temporary UI for the platfrom and system contribution.
 - [ ] Make a function to dynamically read the existing platforms and the systems in those platforms and make a dropdown menu using them.
 - [ ] Implement all the functionality that exists in the scripts.
+- [ ] Make a file to store all the styles.
 - [ ] Clean up the folders (duplicate scripts, etc...).
 - [ ] Make a test build off the application. For Windows and Linux.
 
