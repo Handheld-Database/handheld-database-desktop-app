@@ -6,7 +6,7 @@ This application is **work in progress**. You will be able to use it to add Plat
 ## TO DO
 - [x] Make temporary UI for the Platfrom, System and Game windows
 - [ ] Make temporary UI for the manual game and automatic game contribution.
-- [ ] Put all classes in different files.
+- [x] Put all classes in different files.
 - [ ] Make a function to dynamically read the existing platforms and the systems in those platforms and make a dropdown menu using them.
 - [ ] Implement all the functionality that exists in the scripts.
 - [ ] Clean up the folders (duplicate scripts, etc...).
