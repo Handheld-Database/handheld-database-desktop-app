@@ -8,7 +8,7 @@ def get_game_url(game_name, platform):
     search_url = f"https://www.mobygames.com/search/?q={game_name}"
     response = requests.get(search_url)
     soup = BeautifulSoup(response.text, 'html.parser')
-
+    
     table = soup.find('table', class_='table mb')
     if table:
         rows = table.find_all('tr')
@@ -21,13 +21,13 @@ def get_game_url(game_name, platform):
                     if platform in platform_tag.get_text(strip=True):
                         game_link = game_link_tag['href']
                         return game_link
-
+    
     return None
 
 def get_game_description(game_url):
     response = requests.get(game_url)
     soup = BeautifulSoup(response.text, 'html.parser')
-
+    
     description_div = soup.find('div', id='description-text')
     if description_div:
         paragraphs = description_div.find_all('p')
@@ -38,7 +38,7 @@ def get_game_description(game_url):
                 parts.append(content.get_text(strip=True))
             description_parts.append(' '.join(parts))
         description = ' '.join(description_parts)
-        return description.encode('ascii', 'ignore').decode().strip()
+        return description.strip()
 # Function to normalize input string by removing extra spaces and non-word characters
 def normalize_string(input_string):
     normalized_string = re.sub(r'\s+', ' ', input_string)  # Collapse multiple spaces into one
@@ -70,7 +70,7 @@ def create_game(platform_name, system_name, game_name, rank, observations, teste
 
     game_dir = os.path.join('platforms', normalize_platform_name, 'systems', normalize_system_name, normalize_game_name)
     os.makedirs(game_dir, exist_ok=True)
-
+    
     attributes = {
         "name": normalize_string(game_name),
         "key": normalize_string_2(game_name)
@@ -82,8 +82,8 @@ def create_game(platform_name, system_name, game_name, rank, observations, teste
         with open(game_json_path, 'w') as f:
             json.dump(attributes, f, indent=4)
 
-    MARKDOWN = f'''## Execution information\n\n'''
-
+    MARKDOWN = f'''# {game_name} \n\n%game_overview%\n\n## Execution information\n\n'''
+    
     # Create Markdown file for the game
     game_md_path = os.path.join(game_dir, f'{normalize_game_name}.{tester}.md')
     if not os.path.exists(game_md_path):
@@ -95,7 +95,7 @@ def create_game(platform_name, system_name, game_name, rank, observations, teste
 # Function to update the list of platforms in the main index.json
 def update_games_list(platform_name, system_name, attributes):
     games_list = []
-
+    
     games_list_path = os.path.join('platforms', platform_name, 'systems', system_name, 'index.json')
     if os.path.exists(games_list_path):
         with open(games_list_path, 'r') as f:
@@ -104,11 +104,11 @@ def update_games_list(platform_name, system_name, attributes):
                 games_list = data.get('games', [])
             except json.JSONDecodeError:
                 games_list = []
-
+    
     # Extract relevant attributes for the platform entry
     game_entry = {
         "name": attributes["name"],
-        "key": attributes["key"],
+        "key": attributes["key"]
     }
 
     games_list.append(game_entry)
@@ -146,17 +146,17 @@ def fetch_steamgriddb_game_urls(api_key, game_id):
             image_urls = {'square': None, 'rectangular': None}
 
             images_list = data['data']
-
+            
             # Filtrar imagens quadradas e retangulares
             square_images = list(filter(lambda x: x['style'] == 'alternate' and x['width'] == x['height'], images_list))
             rectangular_images = list(filter(lambda x: x['style'] == 'alternate' and x['width'] > x['height'], data['data']))
-
+            
             # Selecionar a primeira imagem de cada tipo, se existirem
             if square_images:
                 image_urls['square'] = square_images[0]['url']
             if rectangular_images:
                 image_urls['rectangular'] = rectangular_images[0]['url']
-
+            
             return image_urls
         else:
             print(f"No data found for game ID {game_id}")
@@ -189,24 +189,38 @@ with open(csv_file_path, 'r') as csvfile:
     for row in csvreader:
         if len(row) == 0:
             continue
-        game_name = extract_game_name(row[0])
+        game_name = extract_game_name(row[1])
+        tester = "JeepThatGoesBoom"
+        # Determine rank
+        rank = "FAULTY"
+        if "P" in row[0]:
+            rank = "PLATINUM"
+        elif "G" in row[0]:
+            rank = "GOLD"
+        elif "S" in row[0]:
+            rank = "SILVER"
+        elif "B" in row[0]:
+            rank = "BRONZE"
+        elif "F" in row[0]:
+            rank = "FAULTY"
         observations = [
-            f"**Tester**: {row[1] if len(row[1]) > 1 else 'Not tested'}",
-            f"**Rank**: {row[4] if len(row[4]) > 1 else 'Not tested'}",
-            f"**Backend**: {row[3] if len(row[3]) > 1 else 'Not tested'}",
-            f"**Resolution**: {row[2] if len(row[2]) > 1 else 'Not tested'}",
-            f"**Notes**: {row[5]}" if len(row[5]) > 0 else None
-
+            f"** Tested on RA 1.18.0 Crossmix 1.1.0 Performance mode **"
+            f"\n\n**Rank**: {rank}",
+            f"\n**Tester**: {tester}",
+            f"\n\n**RA ParaLLEl Dynarec/Gln64**: {row[3] if len(row[3]) > 1 else 'Not tested'}",
+            f"\n**RA Mupen Pure/HLE**: {row[4] if len(row[4]) > 1 else 'Not tested'}",
+            f"\n**RA ParaLLEl Dynarec/Rice**: {row[5] if len(row[5]) > 1 else 'Not tested'}",
+            f"\n**RA Mupen Dynarec/HLE**: {row[6] if len(row[6]) > 1 else 'Not tested'}",
+            F"\n**Recommended Core config**: {row[2] if len(row[2]) > 1 else 'Not tested'}"
+            f"\n**Notes**: {row[7]}" if len(row[7]) > 0 else None,
         ]
         observations = [obs for obs in observations if obs]  # Remove empty observations
 
-        print("tsp", "psp", game_name, observations)
+        print("tsp", "n64", game_name, observations)
 
-        tester = row[1]
         game_id = fetch_steamgriddb_game_id(steam_grid_api_key, game_name)
 
-        # Determine rank
-        rank = row[4]
+
 
         print(steam_grid_api_key, game_id)
 
@@ -214,37 +228,5 @@ with open(csv_file_path, 'r') as csvfile:
         cover_url = ""
         normalize_game_name = normalize_string_2(game_name)
 
-        # if game_id is not None:
-        #     image_urls = fetch_steamgriddb_game_urls(steam_grid_api_key, game_id)
-        #     icon_url = image_urls['square']
-        #     cover_url = image_urls['rectangular']
-
-        # # Download and convert images
-        # game_folder = os.path.join("commons", "images", "games")
-        # os.makedirs(game_folder, exist_ok=True)
-        # if cover_url:
-        #     cover_save_path = os.path.join(game_folder, f'{normalize_game_name}.cover.webp')
-        #     download_and_convert_image(cover_url, cover_save_path)
-        # if icon_url:
-        #     icon_save_path = os.path.join(game_folder, f'{normalize_game_name}.icon.webp')
-        #     download_and_convert_image(icon_url, icon_save_path)
-
-        # game_url = get_game_url(game_name, "PSP")
-        # if game_url:
-        #     print(f"Game URL: {game_url}")
-        #     game_description = get_game_description(game_url)
-        #     if game_description:
-        #         print("Game Description:")
-        #         print(game_description)
-        #         MD_OVERVIEW = f"## Overview\n\n{game_description}"
-        #         game_md_path = os.path.join("commons", "overviews", f'{normalize_game_name}.overview.md')
-        #         if not os.path.exists(game_md_path):
-        #             with open(game_md_path, 'w') as f:
-        #                 f.write(MD_OVERVIEW)
-        #     else:
-        #         print("Description not found.")
-        # else:
-        #     print("Game not found on Playstation Portable platform.")
-
         # Create the game with parsed data
-        create_game("tsp", "psp", game_name, rank, observations, tester)
+        create_game("tsp", "n64", game_name, rank, observations, tester)

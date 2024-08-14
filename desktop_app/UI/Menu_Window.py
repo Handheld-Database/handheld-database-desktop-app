@@ -1,6 +1,10 @@
 import tkinter as tk                
 from tkinter import PhotoImage
 from tkinter import messagebox
+try:
+        from UI.Manager import App_Manager
+except ImportError:
+        print("Menu_Window.py - Coudn't import App_Manager!")
 
 
 class Menu_Window(tk.Frame):
@@ -48,19 +52,40 @@ WORK IN PROGRESS""", font=('Arial', 28), anchor="center")
         # Add Label under the button
         game_Lbl = tk.Label(buttonframe, text="GAME", font=('Arial', 32))
         game_Lbl.grid(row=1, column=2)
-        buttonframe.pack(pady=40)
+        buttonframe.pack(pady=20)
         #------------------------------------------------------------------------------------------
 
-        tk.Label(self, text="""For the Handheld-Database
-Made by meeeaCH""", font=('Arial', 18), justify="center").pack()
+        tk.Label(self, text="""ALPHA BUILD
+For the Handheld-Database
+Made by meeeaCH""", font=('Arial', 14), justify="center").pack()
         
-        tk.Label(self, text="""ALPHA BUILD""", font=('Arial', 10, 'bold'), justify="center").pack(side="right")
+        # Button for browsing and choosing a directory.
+        path_button = tk.Button(self, text="BROWSE", command=self.set_Directory_Path)
+        path_button.pack(side="left", pady=10)
 
-        # Making the HELP button
-        help = tk.Button(self, text="Help", font=('Arial', 10), command=self.help_Btn_Func) 
-        help.pack(side="right", padx=20, pady=12)
+        # A Label to show the choosen directory.
+        path_lable = tk.Entry(self, font=('Arial', 10, 'bold'), justify="center")
+        self.default_text = tk.StringVar()
+        self.default_text.set("PATH TO THE DIRECTORY")
+        path_lable.config(state = "disabled", textvariable = self.default_text, width=120)
+        path_lable.pack(side="left", padx=5, pady=10)
+
+        
+
+        # Making the HELP button.
+        help = tk.Button(self, text="HELP", command=self.help_Btn_Func) 
+        help.pack(side="right", padx=10, pady=10)
         self.pack()
 
+# Sets the directory of the database and shows it in the entry
+    def set_Directory_Path(self):
+        self.default_text.set(App_Manager.set_directory())
+        # For testing ---
+        App_Manager.list_platforms()
+        App_Manager.list_systems_in_platfroms("tsp")
+        # ------
+
+    
     # Defining the HELP button's function
     def help_Btn_Func(self):
         main_menu = """In this section you can chose what you want to add to the database.
