@@ -1,8 +1,8 @@
 import argparse
 import sys
-from helpers.games import create_game
-from helpers.platforms import create_platform
-from helpers.systems import create_system
+from desktop_app.funcs.games import create_game
+from desktop_app.funcs.platforms import create_platform
+from desktop_app.funcs.systems import create_system
 
 # Function to display help text for using the script
 def display_help():

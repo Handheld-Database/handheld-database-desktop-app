@@ -25,7 +25,7 @@ You will be able to add games to the database manually.""",font=('Arial', 18)) #
                 platfrom_dropdown.pack(pady=10)
 
                 # Populate the dropdown menu with the list of platfroms
-                for option in App_Manager.get_platfroms():
+                for option in App_Manager.scaned_platfroms:
                         platfrom_dropdown["menu"].add_command(label=option, command=lambda opt=option: selected_platform.set(opt))
                 
                 # Add a button to print the selected option for testing

@@ -32,21 +32,21 @@ WORK IN PROGRESS""", font=('Arial', 28), anchor="center")
         buttonframe.columnconfigure(2, weight=1)
 
         # Add Plafrom button.
-        platform = tk.Button(buttonframe, image=platform_Img, command=lambda: controller.show_frame("Platfrom_Window"))  
+        platform = tk.Button(buttonframe, image=platform_Img, command=lambda: self.path_check("Platfrom_Window"))  
         platform.img = platform_Img
         platform.grid(row=0, column=0,sticky=tk.W+tk.E, padx=20)
         # Add Label under the button
         platform_Lbl = tk.Label(buttonframe, text="PLATFORM", font=('Arial', 32))
         platform_Lbl.grid(row=1, column=0)
         # Add System button.
-        system = tk.Button(buttonframe, image=system_Img, command=lambda: controller.show_frame("System_Window"))  
+        system = tk.Button(buttonframe, image=system_Img, command=lambda: self.path_check("System_Window"))  
         system.img = system_Img
         system.grid(row=0, column=1,sticky=tk.W+tk.E, padx=20)
         # Add Label under the button
         system_Lbl = tk.Label(buttonframe, text="SYSTEM", font=('Arial', 32))
         system_Lbl.grid(row=1, column=1)
         # Add game button.
-        game = tk.Button(buttonframe, image=game_Img, command=lambda: controller.show_frame("Game_Window"))
+        game = tk.Button(buttonframe, image=game_Img, command=lambda: self.path_check("Game_Window"))
         game.img = game_Img
         game.grid(row=0, column=2, sticky=tk.W+tk.E, padx=20)
         # Add Label under the button
@@ -85,7 +85,16 @@ Made by meeeaCH""", font=('Arial', 14), justify="center").pack()
         App_Manager.list_systems_in_platfroms("tsp")
         # ------
 
-    
+    def path_check(self, page):
+        message = """Set the PATH to the Database directory."""
+        if(App_Manager.database_root_path[0] == None):
+                messagebox.showwarning("Main Menu Info", message)
+        else:
+              self.controller.show_frame(page)
+              
+        
+              
+
     # Defining the HELP button's function
     def help_Btn_Func(self):
         main_menu = """In this section you can chose what you want to add to the database.
@@ -93,4 +102,6 @@ Made by meeeaCH""", font=('Arial', 14), justify="center").pack()
 -Click the "SYSTEM" button to add a new system to a platform. (For example: PSP, GBA)
 -Click the "GAME" button to add a new game to a system.
 """
-        messagebox.showinfo("Main Menu Info", main_menu) 
+        messagebox.showinfo("Main Menu Info", main_menu)
+
+ 
