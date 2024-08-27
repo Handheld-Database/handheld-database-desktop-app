@@ -3,21 +3,23 @@
 import os
 from tkinter import filedialog
 
+try:
+        from funcs import platforms
+except ImportError:
+        print(" App_Manager - Coudn't import platfroms.py")
+
 # mutable lists, only the value changes
 database_root_path = [None]
 scaned_platfroms = [None]
-
 scanned_systems_in_choosen_platfrom = [None]
 
 def print_out_things(thing):
     print(thing)
 
-
 # Saves and returns the choosen directory.
 def set_directory():
     database_root_path[0] = filedialog.askdirectory()
     return database_root_path[0]
-
 
 # Scans the existing platfrom folder's content and removes non directories.
 def list_platforms():
@@ -33,7 +35,6 @@ def list_platforms():
     scaned_platfroms.pop(0) # removes the first element
     #print(scaned_platfroms)
     return scaned_platfroms
-
             
 # Scans the platfroms and lists the existing systems in them.
 def list_systems_in_platfroms(selected_platfrom):
@@ -49,6 +50,8 @@ def list_systems_in_platfroms(selected_platfrom):
     print(scanned_systems_in_choosen_platfrom) 
     return scanned_systems_in_choosen_platfrom
 
-
-def New_Platfrom():
+# Creates the new platfrom with data from the UI elements.
+def New_Platfrom(steamgrid_api_key, name, database_key, manufacturer, screen_size, resolution, battery_life, weight, system, cpu, gpu, ram, arch, storage, media, connectivity):
+    platforms.create_platform(database_root_path, steamgrid_api_key, name, database_key, manufacturer, screen_size, resolution, battery_life, weight, system, cpu, gpu, ram, arch, storage, media, connectivity)
+    #test.print_out_things("REeeeeeee")
     print("Add a new platfrom")

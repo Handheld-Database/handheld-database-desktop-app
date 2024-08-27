@@ -18,18 +18,9 @@ You will be able to add games to the database manually.""",font=('Arial', 18)) #
         #-------------------------------------------------------------------------------------  Adding a game procces: tsp nds "Dragon Ball Kai Ultimate Butouden" --tester meeeaCH --steamgrid-key yourID
                 # Test ------------
                 selected_platform = tk.StringVar()
-                if (selected_platform == None):
-                        selected_platform = "Select an option"
-
-                platfrom_dropdown = tk.OptionMenu(self, selected_platform, "Select an option")
-                platfrom_dropdown.pack(pady=10)
-
-                # Populate the dropdown menu with the list of platfroms
-                for option in App_Manager.scaned_platfroms:
-                        platfrom_dropdown["menu"].add_command(label=option, command=lambda opt=option: selected_platform.set(opt))
-                
+               
                 # Add a button to print the selected option for testing
-                button = tk.Button(self, text="Show Selection", command=lambda : App_Manager.print_out_things(selected_platform.get()))
+                button = tk.Button(self, text="Show Selection", command=lambda : App_Manager.print_out_things(selected_platform))
                 button.pack()
 
         #-------------------------------------------------------------------------------------

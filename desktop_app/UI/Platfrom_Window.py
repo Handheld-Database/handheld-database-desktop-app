@@ -1,6 +1,5 @@
 import tkinter as tk                
 from tkinter import messagebox
-
 try:
         from UI.Manager import App_Manager
 except ImportError:
@@ -91,7 +90,25 @@ class Platfrom_Window(tk.Frame):
             self.connectivity_text = tk.StringVar()
             connectivity_entry = tk.Entry(button_frame, textvariable=self.connectivity_text, width=60,font=('Arial', 11)).grid(row=15, column=1)
 
-            add_button = tk.Button(button_frame, text="ADD", font=('Arial', 16), command=lambda: [App_Manager.New_Platfrom(), self.new_platfrom_added_notification(), self.clear_input_fields()]).grid(row=16, column=1)
+            add_button = tk.Button(button_frame, text="ADD", font=('Arial', 16), command=lambda: [platforms.create_platform(
+                  App_Manager.database_root_path,
+                  self.default_text,
+                  self.name_text,
+                  self.database_key_text,
+                  self.manufacturer_entry_text,
+                  self.screen_size_text,
+                  self.resolution_text,
+                  self.battery_life_text,
+                  self.weight_text,
+                  self.system_text,
+                  self.cpu_text,
+                  self.gpu_text,
+                  self.ram_text,
+                  self.arch_text,
+                  self.storage_text,
+                  self.media_text,
+                  self.connectivity_text
+            ), self.new_platfrom_added_notification(), self.clear_input_fields()]).grid(row=16, column=1)
             clear_button = tk.Button(button_frame, text = "CLEAR", font=('Arial', 16), 
             command=self.clear_input_fields).grid(row=16, column=0, sticky='e')
 

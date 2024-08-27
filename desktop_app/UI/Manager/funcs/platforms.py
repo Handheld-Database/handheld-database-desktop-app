@@ -3,37 +3,54 @@ import os
 
 from helpers.os import scan_array_input, scan_input
 from helpers.strings import normalize_string, normalize_string_lower
+
 # Function to create a new platform
-def create_platform(platform_name_arg):
+def create_platform(PATH, steamgrid_api_key, name, database_key, manufacturer, screen_size, resolution, battery_life, weight, system, cpu, gpu, ram, arch, storage, media, connectivity):
     """
-    Creates a new platform by prompting the user for various attributes and saving the information in a JSON file.
+    Creates a new platform by getting the data from Platfrom_Window.py.
 
     Parameters:
     platform_name_arg (str): The name of the platform to be created.
+    steamgrid_api_key (str): The Steamgrid api key to get autorized.
+    name (str): Full name of the device.
+    database_key (str): Key value to refer to the device in the database.
+    manufacturer (str)
+    screen_size (str)
+    resolution (str)
+    battery_life (str)
+    weight (str)
+    system (str)
+    cpu (str)
+    gpu (str)
+    ram (str)
+    arch (str)
+    storage (str)
+    media (str)
+    connectivity (str)
     """
     attributes = {}
 
     # Prompting user for platform attributes
-    attributes["name"] = scan_input("Enter the name: ")
-    attributes["database_key"] = normalize_string_lower(scan_input("Enter the database key: "))
-    attributes["manufacturer"] = scan_input("Enter the manufacturer: ")
-    attributes["screen_size"] = scan_input("Enter the screen size: ")
-    attributes["resolution"] = scan_input("Enter the resolution: ")
-    attributes["battery_life"] = scan_input("Enter the battery life: ")
-    attributes["weight"] = scan_input("Enter the weight: ")
-    attributes["system"] = scan_input("Enter the system: ")
-    attributes["cpu"] = scan_input("Enter the CPU: ")
-    attributes["gpu"] = scan_input("Enter the GPU: ")
-    attributes["ram"] = scan_input("Enter the RAM: ")
-    attributes["arch"] = scan_input("Enter the architecture: ")
-    attributes["storage"] = scan_input("Enter the storage: ")
-    attributes["media"] = scan_input("Enter media: ")
-    attributes["connectivity"] = scan_array_input("Enter connectivity (separate with ';'): ")
+    attributes["name"] = name
+    attributes["database_key"] = normalize_string_lower(database_key)
+    attributes["manufacturer"] = manufacturer
+    attributes["screen_size"] = screen_size
+    attributes["resolution"] = resolution
+    attributes["battery_life"] = battery_life
+    attributes["weight"] = weight
+    attributes["system"] = system
+    attributes["cpu"] = cpu
+    attributes["gpu"] = gpu
+    attributes["ram"] = ram
+    attributes["arch"] = arch
+    attributes["storage"] = storage
+    attributes["media"] = media
+    attributes["connectivity"] = connectivity
     attributes["systems"] = [{"name": "Name", "key": "key"}]
 
-    # Normalize platform name to use as directory name
-    platform_name = normalize_string(platform_name_arg)
-    platform_dir = os.path.join('platforms', platform_name)
+    # Normalize database_key to use as directory name
+    platform_name = normalize_string(database_key)
+    platform_dir = os.path.join(PATH[0],'commons','platforms', platform_name)
     os.makedirs(platform_dir, exist_ok=True)
 
     # Create index.json for the platform
