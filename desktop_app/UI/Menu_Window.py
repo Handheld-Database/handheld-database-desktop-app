@@ -100,7 +100,7 @@ Made by meeeaCH""", font=('Arial', 14), justify="center").pack()
         main_menu = """In this section you can chose what you want to add to the database.
 -Click the "PLATFORM" button to add a new platfrom. (For example: R36S, TSP)
 -Click the "SYSTEM" button to add a new system to a platform. (For example: PSP, GBA)
--Click the "GAME" button to add a new game to a system.
+-Click the "GAME" button to add a new game to a system or import from a .CSV file.
 """
         messagebox.showinfo("Main Menu Info", main_menu)
 

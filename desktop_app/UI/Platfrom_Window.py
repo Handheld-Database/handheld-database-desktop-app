@@ -23,14 +23,14 @@ class Platfrom_Window(tk.Frame):
             button_frame.columnconfigure(0, weight=1)
             button_frame.columnconfigure(1, weight=1)
 
-            steamgrid_api_entry_lbl = tk.Label(button_frame, text = "STEAMGRID API KEY: ", font=('Arial', 18)).grid(row=0, column=0, sticky='e')
+            #steamgrid_api_entry_lbl = tk.Label(button_frame, text = "STEAMGRID API KEY: ", font=('Arial', 18)).grid(row=0, column=0, sticky='e')
             steamgrid_api_entry = tk.Entry(button_frame, width=60,font=('Arial', 11), justify="center")
-            self.default_text = tk.StringVar()
-            self.default_text.set("PASTE YOUR STEAMGRID API KEY HERE")
-            steamgrid_api_entry.config(textvariable = self.default_text, width=60)
-            steamgrid_api_entry.grid(row=0, column=1)
+            self.steamgrid_api_text = tk.StringVar()
+            self.steamgrid_api_text.set("PASTE YOUR STEAMGRID API KEY HERE")
+            steamgrid_api_entry.config(textvariable = self.steamgrid_api_text, width=60)
+            #steamgrid_api_entry.grid(row=0, column=1)  This isn't shown because the script doesn't scrape picture for the devices yet.
 
-            name_lbl = tk.Label(button_frame, text = "Name: ", font=('Arial', 20)).grid(row=1, column=0, sticky='e')
+            name_lbl = tk.Label(button_frame, text = "Device's name: ", font=('Arial', 20)).grid(row=1, column=0, sticky='e')
             self.name_text = tk.StringVar()
             name_entry = tk.Entry(button_frame, textvariable=self.name_text, width=60,font=('Arial', 11)).grid(row=1, column=1)
             
@@ -90,24 +90,23 @@ class Platfrom_Window(tk.Frame):
             self.connectivity_text = tk.StringVar()
             connectivity_entry = tk.Entry(button_frame, textvariable=self.connectivity_text, width=60,font=('Arial', 11)).grid(row=15, column=1)
 
-            add_button = tk.Button(button_frame, text="ADD", font=('Arial', 16), command=lambda: [platforms.create_platform(
-                  App_Manager.database_root_path,
-                  self.default_text,
-                  self.name_text,
-                  self.database_key_text,
-                  self.manufacturer_entry_text,
-                  self.screen_size_text,
-                  self.resolution_text,
-                  self.battery_life_text,
-                  self.weight_text,
-                  self.system_text,
-                  self.cpu_text,
-                  self.gpu_text,
-                  self.ram_text,
-                  self.arch_text,
-                  self.storage_text,
-                  self.media_text,
-                  self.connectivity_text
+            add_button = tk.Button(button_frame, text="ADD", font=('Arial', 16), command=lambda: [App_Manager.New_Platfrom(
+                  self.steamgrid_api_text.get(),
+                  self.name_text.get(),
+                  self.database_key_text.get(),
+                  self.manufacturer_entry_text.get(),
+                  self.screen_size_text.get(),
+                  self.resolution_text.get(),
+                  self.battery_life_text.get(),
+                  self.weight_text.get(),
+                  self.system_text.get(),
+                  self.cpu_text.get(),
+                  self.gpu_text.get(),
+                  self.ram_text.get(),
+                  self.arch_text.get(),
+                  self.storage_text.get(),
+                  self.media_text.get(),
+                  self.connectivity_text.get()
             ), self.new_platfrom_added_notification(), self.clear_input_fields()]).grid(row=16, column=1)
             clear_button = tk.Button(button_frame, text = "CLEAR", font=('Arial', 16), 
             command=self.clear_input_fields).grid(row=16, column=0, sticky='e')
@@ -122,7 +121,12 @@ class Platfrom_Window(tk.Frame):
             
         # Defining the HELP button's function
     def help_Btn_Func(self):
-        main_menu = """HERE GOES THE HELP FOR THIS SECTION.
+        main_menu = """
+Adding Proccess:
+1. - Fill out the entries for the device you want to add to the database.
+2. - Press the ADD button, which will add the device to the database based on the provided data.
+
+Clear button: clears out the all the data entries, except the API key.
 """
         messagebox.showinfo("Platfrom Info", main_menu) 
 
