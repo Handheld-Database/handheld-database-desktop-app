@@ -1,14 +1,14 @@
 import json
 import os
-from funcs.images import download_game_images
-from funcs.os import scan_input
-from funcs.scraper import get_game_description
-from funcs.steamgrid import SteamGridDB
-from funcs.strings import normalize_string_lower
-from funcs.templates import generate_game_templates_md
+from helpers.images import download_game_images
+from helpers.os import scan_input
+from helpers.scraper import get_game_description
+from helpers.steamgrid import SteamGridDB
+from helpers.strings import normalize_string_lower
+from helpers.templates import generate_game_templates_md
 
 
-def create_game(platform_name, system_name, game_name, api_key=None):
+def create_game(platform_name, system_name, game_name, tester, api_key=None):
     """
     Creates a directory structure and necessary files for a game under the specified platform and system.
 
@@ -33,7 +33,6 @@ def create_game(platform_name, system_name, game_name, api_key=None):
         download_images(api_key, game_name, normalized_game_name)
         
     create_game_files(game_dir, game_name, system_name, attributes, description)
-    update_games_list(normalized_platform_name, normalized_system_name, attributes)
 
 def gather_game_attributes(game_name):
     """
@@ -47,8 +46,7 @@ def gather_game_attributes(game_name):
     """
     return {
         "name": game_name,
-        "key": normalize_string_lower(game_name),
-        "rank": scan_input("Enter the rank (PLATINUM, GOLD, SILVER, BRONZE & FAULTY): ")
+        "key": normalize_string_lower(game_name)
     }
 
 def download_images(api_key, game_name, normalized_game_name):
@@ -123,74 +121,3 @@ def create_overview_file(normalized_game_name, game_name, description):
     if not os.path.exists(game_overview_path):
         with open(game_overview_path, 'w') as f:
             f.write(f'## Overview\n\n{description}\n\n# KEY INFORMATION\n\n- **Developer**:\n- **Publisher**:\n- **Platforms**:\n- **Release Date**:\n- **Genre**:\n- **Modes**:\n\n# Source of information\n FOR EXAMPLE: WIKIPEDIA: [LINK](LINK TO THE SOURCE)')
-
-def update_games_list(platform_name, system_name, attributes):
-    """
-    Updates the list of games in the main index.json for a platform.
-
-    Parameters:
-    platform_name (str): The name of the platform.
-    system_name (str): The name of the system.
-    attributes (dict): A dictionary containing game attributes.
-    """
-    games_list = load_games_list(platform_name, system_name)
-    game_entry = {key: attributes[key] for key in ["name", "key", "rank"]}
-    
-    # Update the index.js based on if the key is already in the database.
-    match in_list(attributes["key"], games_list):
-        # Giving the user a message, if the game is in the database already.
-        case 1:
-            print("-------------------------------------------------------------------------------------------")
-            print("|  This game is already in the database, please search for it, if you want to add to it.  |")
-            print("-------------------------------------------------------------------------------------------")
-        # Updating the index.js if the game isn't in it.
-        case 0:
-            games_list.append(game_entry)
-            save_games_list(platform_name, system_name, games_list)
-            print()
-            print("|--->  " + attributes["name"] + " added to " + system_name + " in " + platform_name + "  <---|")
-            print()
-        case _:
-            print()
-    
-
-# Checks if the game is already in the database
-def in_list(gameKey, list):
-    for item in list:
-        if item["key"] == gameKey:
-            return 1
-    return 0
-
-def load_games_list(platform_name, system_name):
-    """
-    Loads the list of games from the main index.json for a platform.
-
-    Parameters:
-    platform_name (str): The name of the platform.
-    system_name (str): The name of the system.
-
-    Returns:
-    list: A list of games.
-    """
-    games_list_path = os.path.join('platforms', platform_name, 'systems', system_name, 'index.json')
-    if os.path.exists(games_list_path):
-        with open(games_list_path, 'r') as f:
-            try:
-                data = json.load(f)
-                return data.get('games', [])
-            except json.JSONDecodeError:
-                return []
-    return []
-
-def save_games_list(platform_name, system_name, games_list):
-    """
-    Saves the list of games to the main index.json for a platform.
-
-    Parameters:
-    platform_name (str): The name of the platform.
-    system_name (str): The name of the system.
-    games_list (list): A list of games.
-    """
-    games_list_path = os.path.join('platforms', platform_name, 'systems', system_name, 'index.json')
-    with open(games_list_path, 'w') as f:
-        json.dump({"games": games_list}, f, indent=4)

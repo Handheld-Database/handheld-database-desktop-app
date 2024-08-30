@@ -8,8 +8,6 @@ from UI import Platfrom_Window
 from UI import System_Window
 from UI import Menu_Window
 
-from UI import app_manager as manager
-
 # Application to make contributing to the Handheld Database easier.
 # WORK IN PROGRESS
 
@@ -48,6 +46,7 @@ class App(tk.Tk):
     def show_frame(self, page_name):
         frame = self.frames[page_name]
         frame.tkraise()  # Lifts the appropriate frame to the top, so it is shown.
+
 
 
 
