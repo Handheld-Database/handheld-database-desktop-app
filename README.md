@@ -10,7 +10,7 @@ You will be able to use it to add Platforms, Systems and Games to those systems.
 - [x] Make temporary UI for the Platfrom, System and Game windows
 - [x] Put all classes in different files.
 - [ ] Make temporary UI for the manual game and automatic game contribution.
-- [ ] Make temporary UI for the platfrom and system contribution.
+- [X] Make temporary UI for the platfrom and system contribution.
 - [ ] Make a function to dynamically read the existing platforms and the systems in those platforms and make a dropdown menu using them.
 - [ ] Implement all the functionality that exists in the scripts.
 - [ ] Make a file to store all the styles.
