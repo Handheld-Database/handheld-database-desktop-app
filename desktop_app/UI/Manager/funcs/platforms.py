@@ -48,7 +48,7 @@ def create_platform(PATH, steamgrid_api_key, name, database_key, manufacturer, s
 
     # Normalize database_key to use as directory name
     platform_name = normalize_string_lower(str(database_key))
-    platform_dir = os.path.join(PATH[0],'commons','platforms', platform_name)
+    platform_dir = os.path.join(PATH[0],'platforms', platform_name)
     os.makedirs(platform_dir, exist_ok=True)
 
     # Create index.json for the platform
@@ -70,7 +70,7 @@ def update_platforms_list(attributes, platform_name, PATH):
     """
     platforms_list = []
     
-    platforms_list_path = os.path.join(PATH[0],'commons','platforms', 'index.json')
+    platforms_list_path = os.path.join(PATH[0],'platforms', 'index.json')
     if os.path.exists(platforms_list_path):
         with open(platforms_list_path, 'r') as f:
             try:

@@ -1,0 +1,31 @@
+{
+    "name": "Test1",
+    "database_key": "test1",
+    "manufacturer": "",
+    "screen_size": "",
+    "resolution": "",
+    "battery_life": "",
+    "weight": "",
+    "system": "",
+    "cpu": "",
+    "gpu": "",
+    "ram": "",
+    "arch": "",
+    "storage": "",
+    "media": "",
+    "connectivity": "",
+    "systems": [
+        {
+            "name": "Name",
+            "key": "key"
+        },
+        {
+            "name": "Test32",
+            "key": "test32"
+        },
+        {
+            "name": "test33",
+            "key": "test33"
+        }
+    ]
+}

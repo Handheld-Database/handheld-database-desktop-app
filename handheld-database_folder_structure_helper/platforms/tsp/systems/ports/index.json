@@ -1,0 +1,84 @@
+{
+    "games": [
+        {
+            "name": "Ocean's Heart",
+            "key": "oceansheart",
+            "rank": "PLATINUM"
+        },
+        {
+            "name": "Grand Theft Auto: Vice City",
+            "key": "grandtheftautovc",
+            "rank": "PLATINUM"
+        },
+        {
+            "name": "Blossom Tales 2",
+            "key": "blossomtales2",
+            "rank": "PLATINUM"
+        },
+        {
+            "name": "Spell Tower",
+            "key": "spelltower",
+            "rank": "GOLD"
+        },
+        {
+            "name": "Half-Life",
+            "key": "halflife",
+            "rank": "GOLD"
+        },
+        {
+            "name": "Re-Volt",
+            "key": "revolt",
+            "rank": "PLATINUM"
+        },
+        {
+            "name": "Sonic Mania",
+            "key": "sonicmania",
+            "rank": "PLATINUM"
+        },
+        {
+            "name": "Grand Theft Auto 3",
+            "key": "grandtheftauto3",
+            "rank": "PLATINUM"
+        },
+        {
+            "name": "Alien vs Predator",
+            "key": "alienvspredator",
+            "rank": "FAULTY"
+        },
+        {
+            "name": "Yarntown",
+            "key": "yarntown",
+            "rank": "FAULTY"
+        },
+        {
+            "name": "Spell Sling",
+            "key": "spellsling",
+            "rank": "PLATINUM"
+        },
+        {
+            "name": "Doom 3",
+            "key": "doom3",
+            "rank": "FAULTY"
+        },
+        {
+            "name": "Return to Castle Wolfeinstin",
+            "key": "returntocastlewolfeinstein",
+            "rank": "PLATINUM"
+        },
+        {
+            "name": "Stardew Valley",
+            "key": "stardewvalley",
+            "rank": "PLATINUM"
+        },
+        {
+            "name": "Little Runmo",
+            "key": "littlerunmo",
+            "rank": "PLATINUM"
+        },
+        {
+            "name": "Raptor",
+            "key": "raptor",
+            "rank": "PLATINUM"
+        }
+    ]
+}

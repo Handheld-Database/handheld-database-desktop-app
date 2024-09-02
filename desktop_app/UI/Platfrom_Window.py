@@ -90,37 +90,20 @@ class Platfrom_Window(tk.Frame):
             self.connectivity_text = tk.StringVar()
             connectivity_entry = tk.Entry(button_frame, textvariable=self.connectivity_text, width=60,font=('Arial', 11)).grid(row=15, column=1)
 
-            add_button = tk.Button(button_frame, text="ADD", font=('Arial', 16), command=lambda: [App_Manager.New_Platfrom(
-                  self.steamgrid_api_text.get(),
-                  self.name_text.get(),
-                  self.database_key_text.get(),
-                  self.manufacturer_entry_text.get(),
-                  self.screen_size_text.get(),
-                  self.resolution_text.get(),
-                  self.battery_life_text.get(),
-                  self.weight_text.get(),
-                  self.system_text.get(),
-                  self.cpu_text.get(),
-                  self.gpu_text.get(),
-                  self.ram_text.get(),
-                  self.arch_text.get(),
-                  self.storage_text.get(),
-                  self.media_text.get(),
-                  self.connectivity_text.get()
-            ), self.new_platfrom_added_notification(), self.clear_input_fields()]).grid(row=16, column=1)
+            add_button = tk.Button(button_frame, text="ADD", font=('Arial', 16), command=lambda: self.Check_Inputs()).grid(row=16, column=1)
             clear_button = tk.Button(button_frame, text = "CLEAR", font=('Arial', 16), 
-            command=self.clear_input_fields).grid(row=16, column=0, sticky='e')
+            command=self.Clear_Input_Fields).grid(row=16, column=0, sticky='e')
 
             button_frame.pack(side="left")
              # --------------------------------------------------------------------------------------
             
             # Making the HELP button
-            help = tk.Button(self, text="Help", font=('Arial', 10), command=self.help_Btn_Func) 
+            help = tk.Button(self, text="Help", font=('Arial', 10), command=self.Help_Btn_Func) 
             help.pack(anchor = "s", side="right", padx=10, pady=12)
 
             
         # Defining the HELP button's function
-    def help_Btn_Func(self):
+    def Help_Btn_Func(self):
         main_menu = """
 Adding Proccess:
 1. - Fill out the entries for the device you want to add to the database.
@@ -130,7 +113,7 @@ Clear button: clears out the all the data entries, except the API key.
 """
         messagebox.showinfo("Platfrom Info", main_menu) 
 
-    def clear_input_fields(self):
+    def Clear_Input_Fields(self):
           self.name_text.set("")
           self.database_key_text.set("")
           self.manufacturer_entry_text.set("")
@@ -147,7 +130,64 @@ Clear button: clears out the all the data entries, except the API key.
           self.media_text.set("")
           self.connectivity_text.set("")
 
-    def new_platfrom_added_notification(self):
+    def New_Platfrom_Added_Notification(self):
         add_message = """New platfrom was added.
 """
         messagebox.showinfo("Platfrom Message", add_message) 
+
+    def Check_Inputs(self):
+        error_message = """Fill out all the fields!
+"""
+
+        if self.steamgrid_api_text.get() == "" or self.steamgrid_api_text.get() == None:
+                messagebox.showinfo("System Message", error_message) 
+        elif self.name_text.get() == "" or self.name_text.get() == None:
+                messagebox.showinfo("System Message", error_message) 
+        elif self.database_key_text.get() == "" or self.database_key_text.get() == None:
+                messagebox.showinfo("System Message", error_message) 
+        elif self.manufacturer_entry_text.get() == "" or self.manufacturer_entry_text.get() == None:
+                messagebox.showinfo("System Message", error_message) 
+        elif self.screen_size_text.get() == "" or self.screen_size_text.get() == None:
+                messagebox.showinfo("System Message", error_message) 
+        elif self.resolution_text.get() == "" or self.resolution_text.get() == None:
+                messagebox.showinfo("System Message", error_message) 
+        elif self.battery_life_text.get() == "" or self.battery_life_text.get() == None:
+                messagebox.showinfo("System Message", error_message) 
+        elif self.weight_text.get() == "" or self.weight_text.get() == None:
+                messagebox.showinfo("System Message", error_message) 
+        elif self.system_text.get() == "" or self.system_text.get() == None:
+                messagebox.showinfo("System Message", error_message) 
+        elif self.cpu_text.get() == "" or self.cpu_text.get() == None:
+                messagebox.showinfo("System Message", error_message) 
+        elif self.gpu_text.get() == "" or self.gpu_text.get() == None:
+                messagebox.showinfo("System Message", error_message) 
+        elif self.ram_text.get() == "" or self.ram_text.get() == None:
+                messagebox.showinfo("System Message", error_message) 
+        elif self.arch_text.get() == "" or self.arch_text.get() == None:
+                messagebox.showinfo("System Message", error_message) 
+        elif self.storage_text.get() == "" or self.storage_text.get() == None:
+                messagebox.showinfo("System Message", error_message) 
+        elif self.media_text.get() == "" or self.media_text.get() == None:
+                messagebox.showinfo("System Message", error_message) 
+        elif self.connectivity_text.get() == "" or self.connectivity_text.get() == None:
+                messagebox.showinfo("System Message", error_message) 
+        else:
+               App_Manager.New_Platfrom(
+                  self.steamgrid_api_text.get(),
+                  self.name_text.get(),
+                  self.database_key_text.get(),
+                  self.manufacturer_entry_text.get(),
+                  self.screen_size_text.get(),
+                  self.resolution_text.get(),
+                  self.battery_life_text.get(),
+                  self.weight_text.get(),
+                  self.system_text.get(),
+                  self.cpu_text.get(),
+                  self.gpu_text.get(),
+                  self.ram_text.get(),
+                  self.arch_text.get(),
+                  self.storage_text.get(),
+                  self.media_text.get(),
+                  self.connectivity_text.get())
+               self.New_Platfrom_Added_Notification()
+               self.Clear_Input_Fields()
