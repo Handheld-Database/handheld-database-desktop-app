@@ -1,0 +1,73 @@
+{
+    "name": "test",
+    "database_key": "test",
+    "manufacturer": "rtzh",
+    "screen_size": "rt",
+    "resolution": "frt",
+    "battery_life": "fth",
+    "weight": "drz",
+    "system": "rz",
+    "cpu": "rtz",
+    "gpu": "rtz",
+    "ram": "retz",
+    "arch": "rtz",
+    "storage": "tz",
+    "media": "ertz",
+    "connectivity": [
+        "rtz"
+    ],
+    "systems": [
+        {
+            "name": "Name",
+            "key": "key"
+        },
+        {
+            "name": "Test10",
+            "key": "test10"
+        },
+        {
+            "name": "Test2",
+            "key": "test2"
+        },
+        {
+            "name": "Test3",
+            "key": "test3"
+        },
+        {
+            "name": "test5",
+            "key": "test5"
+        },
+        {
+            "name": "Test34",
+            "key": "test34"
+        },
+        {
+            "name": "Test123",
+            "key": "test123"
+        },
+        {
+            "name": "etgsr",
+            "key": "etgsr"
+        },
+        {
+            "name": "trhrt",
+            "key": "trhrt"
+        },
+        {
+            "name": "345",
+            "key": "345"
+        },
+        {
+            "name": "TTEs",
+            "key": "ttes"
+        },
+        {
+            "name": "fast",
+            "key": "fast"
+        },
+        {
+            "name": "asda",
+            "key": "asda"
+        }
+    ]
+}

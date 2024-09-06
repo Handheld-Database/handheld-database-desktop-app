@@ -1,0 +1,11 @@
+{
+    "platforms": [
+        {
+            "name": "",
+            "database_key": "",
+            "image": "platforms/.webp",
+            "manufacturer": "",
+            "system": ""
+        }
+    ]
+}

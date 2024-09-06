@@ -65,9 +65,9 @@ Made by meeeaCH""", font=('Arial', 14), justify="center").pack()
 
         # A Label to show the choosen directory.
         path_lable = tk.Entry(self, font=('Arial', 10, 'bold'), justify="center")
-        self.default_text = tk.StringVar()
-        self.default_text.set("PATH TO THE DIRECTORY")
-        path_lable.config(state = "disabled", textvariable = self.default_text, width=120)
+        self.path_lable_text = tk.StringVar()
+        self.path_lable_text.set("PATH TO THE DIRECTORY")
+        path_lable.config(state = "disabled", textvariable = self.path_lable_text, width=120)
         path_lable.pack(side="left", padx=5, pady=10)
 
         
@@ -79,15 +79,16 @@ Made by meeeaCH""", font=('Arial', 14), justify="center").pack()
 
 # Sets the directory of the database and shows it in the entry
     def set_Directory_Path(self):
-        self.default_text.set(App_Manager.set_directory())
+        self.path_lable_text.set(App_Manager.Set_Directory())
         # For testing ---
-        App_Manager.list_platforms()
-        App_Manager.list_systems_in_platfroms("tsp")
+        #App_Manager.list_platforms()
+        #App_Manager.list_systems_in_platfroms("tsp")
+        App_Manager.Read_Systems_In("tsp")
         # ------
 
     def path_check(self, page):
         message = """Set the PATH to the Database directory."""
-        if(App_Manager.database_root_path[0] == None):
+        if(App_Manager.database_root_path[0] == None or self.path_lable_text.get() == ""):
                 messagebox.showwarning("Main Menu Info", message)
         else:
               self.controller.show_frame(page)

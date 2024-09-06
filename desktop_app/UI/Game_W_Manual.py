@@ -40,4 +40,4 @@ You will be able to add games to the database manually.""",font=('Arial', 18)) #
                 messagebox.showinfo("Game Manual Menu Info", main_menu)
 
         def update_dropdown(self):
-                self.platfrom_dropdown.configure(self, *App_Manager.list_platforms())
+                self.platfrom_dropdown.configure(self, *App_Manager.List_Platforms())

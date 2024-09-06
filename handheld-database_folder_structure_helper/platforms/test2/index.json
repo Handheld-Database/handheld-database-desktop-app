@@ -1,0 +1,39 @@
+{
+    "name": "Test2",
+    "database_key": "test2",
+    "manufacturer": "",
+    "screen_size": "",
+    "resolution": "",
+    "battery_life": "",
+    "weight": "",
+    "system": "",
+    "cpu": "",
+    "gpu": "",
+    "ram": "",
+    "arch": "",
+    "storage": "",
+    "media": "",
+    "connectivity": "",
+    "systems": [
+        {
+            "name": "Name",
+            "key": "key"
+        },
+        {
+            "name": "test1",
+            "key": "test1"
+        },
+        {
+            "name": "test2",
+            "key": "test2"
+        },
+        {
+            "name": "asda",
+            "key": "asda"
+        },
+        {
+            "name": "Test99",
+            "key": "test99"
+        }
+    ]
+}
